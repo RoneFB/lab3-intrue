@@ -1,0 +1,440 @@
+/*
+Block Element Modifier
+
+Bloco de informação
+    - elemento
+    - elemento
+
+Bloco de informação (modificador)
+    - elemento (modificador)
+    - elemento
+
+Block {}
+Block--modifier {}
+Block__Element {}
+Block__Element--modifier {}
+*/
+
+//<!----- VARIÁVEIS ----->
+
+$primary-color:#2cb6e8;
+$secondary-color:#9fb8ad;
+
+$text-color-body: #818181;
+$text-color-h2: #303030;
+$text-color-h4: #303030;
+
+//<!----- FIM VARIÁVEIS ----->
+
+//<!----- TAGS ----->
+
+body{
+    font: 400 15px Lato, sans-serif;
+    line-height: 1.8;
+    color: $text-color-body;
+}
+
+h2{
+    font: {
+        size: 24px;
+        weight: 600;
+        color: $text-color-h2; 
+    }
+
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+h4{
+    font: {
+        size: 19px;
+        weight: 400;
+        color: $text-color-h4; 
+    }
+
+    line-height: 1.4em;
+    margin-bottom: 30px;
+}
+
+footer .glyphicon{
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: $primary-color;
+}
+
+//<!----- FIM TAGS ----->
+
+//<!----- IDS ----->
+
+#main-courses{
+    margin-top: -10%;
+}
+
+//<!----- FIM IDS ----->
+
+//<!----- CLASSES ----->
+
+/*PRÓPRIAS*/
+.bg-gray{
+    background-color: #f6f6f6;
+}
+
+.logo{
+    color: $primary-color;
+    font-size: 200px;
+}
+
+.logo-small{
+    color: $primary-color;
+    font-size: 50px;
+}
+
+.material-icons{
+    color: #03b3e5;    
+}
+
+.material-icons.md-60{
+    font-size: 60px;
+}
+
+.material-icons.md-108{
+    font-size: 192px;
+}
+
+
+/*BOOTSTRAP*/
+.jumbotron{
+    background: {
+        image: linear-gradient(to right bottom, #9fb8ad, #2cb6e8c0), url(../img/index.jpg);
+        position: center;
+    }
+    
+    color: white;
+    padding: 100px 25px;
+    font-family: Montserrat, sans-serif;
+    height: 70vh;
+
+    .row{
+        position: relative;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%,-20%);
+        text-align: center;
+    }
+}
+
+.container-fluid{
+    padding: 60px 50px;
+}
+
+.container{
+    width: 75%;
+}
+
+.thumbnail{
+    padding: 0 0 15px 0;
+    border: none;
+    border-radius: 5px;
+    transition: box-shadow 0.5s;
+
+    &:hover{
+        box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+    }
+
+    img{
+        width: 100%;
+        height: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+.carousel-control.right, .carousel-control.left{
+    background-image: none;
+    color: $primary-color;
+}
+
+.carousel-indicators {
+    li{
+        border-color: $primary-color;
+
+        &.active{
+            background-color: $primary-color;
+        }
+    }
+}
+
+.item {
+    h4{
+        font: {
+            size: 19px;
+            weight: 400;
+            style: italic;
+        }
+        
+        line-height: 1.4em;        
+        margin: 70px 0;
+    }
+
+    span{
+        font-style: normal;
+    }
+}
+
+.panel{
+    cursor: pointer;
+
+    &--pricing{
+        border: 1px solid $primary-color;
+        border-radius: 5px;
+        transition: box-shadow 0.5s;
+
+        &:hover{
+            box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+        }
+    }   
+
+    $i: 0;
+    @each $color in #be85e9, #02ccba, #ec8e17, #ff8bab, #ecc917, #17ec4a{ 
+        $i: $i + 1;     
+        &--courses#{$i}{                 
+            border: 1px solid $color;
+            border-radius: 5px;
+            transition: box-shadow 0.5s;
+
+            &:hover{
+                box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+            }        
+        }
+    }
+
+    &-heading{
+        &--pricing{
+            color: white !important;
+            background-color: $primary-color !important;
+            padding: 25px;
+            border-bottom: 1px solid transparent;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 0px;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+
+        $i: 0;
+        @each $color in #be85e9, #02ccba, #ec8e17, #ff8bab, #ecc917, #17ec4a{ 
+            $i: $i + 1;
+            &--courses#{$i}{
+                padding: 0;
+                color: white !important;
+                background-color: $color !important;
+                border-bottom: none;
+                border-top-left-radius: 0px;
+                border-top-right-radius: 0px;
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
+        }
+    } 
+    
+    &-body{
+        &--courses{
+            padding: 0;
+        }
+    }
+
+    &-footer{
+        &--pricing{
+            background-color: white !important;
+
+            .btn{
+                margin: 15px 0;
+                background-color: $primary-color;
+                color: white;
+            }
+
+            .btn:hover{
+                border: 1px solid $primary-color;
+                background-color: white !important;
+                color: $primary-color;
+            }
+
+            h3{
+                font-size: 32px;
+            }
+
+            h4{
+                color: $text-color-h4;
+                font-size: 14px;
+            }
+        }
+
+        $i: 0;
+        @each $color in #be85e9, #02ccba, #ec8e17, #ff8bab, #ecc917, #17ec4a{ 
+            $i: $i + 1;
+            &--courses#{$i}{
+                background-color: white !important;
+
+                .btn{
+                    margin: 5px 0;
+                    background-color: $color;
+                    color: white;
+                }
+
+                .btn:hover{
+                    border: 1px solid $color;
+                    background-color: white !important;
+                    color: $color;
+                }
+
+                h3{
+                    font-size: 32px;
+                }
+
+                h4{
+                    color: $text-color-body;
+                    font-size: 16px;
+                    margin-bottom: 10px;                
+                }            
+            }
+        }
+    }   
+}
+
+.navbar{
+    margin-bottom: 0;
+    background-color: rgba(0,0,0, .8);
+    z-index: 9999;
+    border: 0;
+    font-size: 12px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+    font-family: Montserrat, sans-serif;
+
+    li{
+        a{
+            color: white !important;            
+        }
+    }
+
+    .navbar-brand{
+        color: white !important;
+    }
+
+    &-nav{
+        li{
+            a{
+                &:hover{
+                    color: $primary-color !important;
+                    background-color: white !important;
+                }
+            }
+
+            &.active{
+                a{
+                    color: $primary-color !important;
+                    background-color: white !important;
+                }
+            }
+        }
+    }
+
+    &-default{
+        .navbar-toggle{
+            border-color: transparent;
+            color: white;
+        }
+    }    
+}
+
+//<!----- FIM CLASSES ----->
+
+//<!----- RESPONSIVO ----->
+
+@media screen and (max-width: 768px){
+    .col-sm-4{
+        text-align: center;
+        margin: 25px 0;
+    }
+
+    .col-sm-6{
+        text-align: center;
+        margin: 15px 0;
+    }
+
+    #about .col-sm-4 img{
+        width: 80%;
+    }
+
+    #services .col-sm-4 img{
+        width: 40%;
+    }
+
+    .container{
+        width: 100%;
+    }  
+    
+    .navbar{
+        background-color: rgba(0,0,0, .8);
+    }  
+    
+    .jumbotron{
+        width: 100%;        
+        padding: 0;
+
+        h1{
+            font-size: 60px;
+        }        
+
+        .row{
+            top: 25%;
+            width: 80%;
+            text-align: center;
+        }
+    }    
+}
+
+@media screen and (max-width: 1100px){
+    .navbar .container{
+        width: 100%;
+    }
+}
+
+//<!----- FIM RESPONSIVO ----->
+
+//<!----- ANIMAÇÃO ----->
+
+.slideanim{
+    visibility: hidden;
+}
+
+.slide{
+    animation-name: slide;
+    -webkit-animation-name: slide;
+    animation-duration: 1s;
+    -webkit-animation-duration: 1s;
+    visibility: visible;
+}
+
+
+@keyframes slide {
+    0% {
+      opacity: 0;
+      transform: translateY(70%);
+    } 
+    100% {
+      opacity: 1;
+      transform: translateY(0%);
+    } 
+  }
+  @-webkit-keyframes slide {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateY(70%);
+    } 
+    100% {
+      opacity: 1;
+      -webkit-transform: translateY(0%);
+    }
+}
+
+//<!----- FIM ANIMAÇÃO ----->

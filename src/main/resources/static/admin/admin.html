@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>INSTRUE | Administrador</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- jQuery 2.2.3 -->
+    <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="js/route.js"></script>
+    <script src="js/routeLogin.js"></script>
+</head>
+
+<body class="hold-transition skin-blue layout-top-nav" id="mainContent">
+    <div class="wrapper">
+        <header class="main-header">
+            <nav class="navbar navbar-static-top" style="background-color:#2cb6e8;">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="index2.html" class="navbar-brand"><b>instrue</b></a>
+                    </div>
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown user user-menu hidden-xs">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                                     <span class="hidden-xs" id="nomeUser" name="nomeUser"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="user-header" style="background-color:#2cb6e8;">
+                                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                        <p>
+                                            <span class="hidden-xs" id="nomeUser" name="nomeUser"></span>
+                                        </p>
+                                    </li>
+                                    <li class="user-footer">
+                                        <div class="pull-left">
+                                            <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                                        </div>
+                                        <div class="pull-right">
+                                           <a href="#" class="btn btn-default btn-flat" name="btnSair" id="btnSair">Sair</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="row" style="background-color:#ecf0f5 !important;">
+            <div class="content-wrapper" style="background-color:#ecf0f5 !important;">
+                <div class="container" style="background-color:#ecf0f5 !important;">
+                    <section class="content-header">
+                        <h1>
+          Painel Administrativo
+          <small>Gerenciamento de cursos</small>
+        </h1>
+                    <section class="content">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="box box-primary">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Cursos</h3>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label for="nomedocurso">Nome do curso</label>
+                                            <input name="txtCadNomeCurso" id="txtCadNomeCurso" type="text" class="form-control" placeholder="Informe o nome do curso">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="categoriadocurso">Categoria</label>
+                                            <select class="form-control" name="lstCadCategoriaCurso" id="lstCadCategoriaCurso">
+                                                <option value="Back-End">Back-End</option>
+                                                <option value="Front-End">Front-End</option>
+                                                <option value="Mobile">Mobile</option>
+                                                <option value="Banco de Dados">Banco de Dados</option>
+                                                <option value="Cloud">Cloud</option>
+                                                <option value="Bussiness">Bussiness</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="descricaodocurso">Descricao</label>
+                                            <textarea name="txtCadDescricaoCurso" id="txtCadDescricaoCurso" cols="30" rows="10" class="form-control"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="duracaodocurso">Duração</label>
+                                            <input id="txtCadDuracaoCurso" name="txtCadDuracaoCurso" type="text" class="form-control" placeholder="Informe a duração do curso">
+                                        </div>
+                                    </div>
+                                    <div class="box-footer">
+                                        <button id="btnCadCurso" name="btnCadCurso" type="submit" class="btn btn-primary">Cadastrar curso</button>
+
+                                        <button id="btnSalvarCurso" name="btnSalvarCurso" type="submit" class="btn btn-primary" style="display:none;">Salvar alterações</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="box box-primary">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Pesquisar curso</h3>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input name="txtBuscarCurso" id="txtBuscarCurso" type="text" class="form-control" placeholder="Informe o nome do curso para fazer a busca">
+                                                <div class="input-group-btn">
+                                                    <button name="btnBuscarCurso" id="btnBuscarCurso" class="btn btn-default">
+                                                        <i class="glyphicon glyphicon-search"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <table class="table table-bordered box box-primary" style="background-color:white">
+                                    <thead>
+                                        <tr class="text-left">
+                                            <th width="15%">Cod</th>
+                                            <th width="55%">Nome do curso</th>
+                                            <th width="15%" class="text-center">Editar</th>
+                                            <th width="15%" class="text-center">Apagar</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="tblCurso">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>
+                </section>
+            </div>
+
+            <div class="container">
+                <section class="content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="box box-success">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Módulos</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="nomedomodulo">Nome do módulo</label>
+                                        <input id="txtCadNomeModulo" name="txtCadNomeModulo" type="text" class="form-control" placeholder="Informe o nome do módulo">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cursodomodulo">Curso</label>
+                                        <input id="txtCadCodCurso" name="txtCadCodCurso" type="text" class="form-control" placeholder="Informe o código do curso que o módulo pertence" readonly>
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <button id="btnCadModulo" name="btnCadModulo" type="submit" class="btn btn-success">Cadastrar módulo</button>
+
+                                    <button id="btnSalvarModulo" name="btnSalvarModulo" type="submit" class="btn btn-success" style="display:none;">Salvar alterações</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="box box-success">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Pesquisar Módulo</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input name="txtBuscarModulo" id="txtBuscarModulo" type="text" class="form-control" placeholder="Informe o nome do curso para listar todos os módulos">
+                                            <div class="input-group-btn">
+                                                <button name="btnBuscarModulo" id="btnBuscarModulo" class="btn btn-default" type="submit">
+                                                    <i class="glyphicon glyphicon-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table class="table table-bordered box box-success" style="background-color:white">
+                                <thead>
+                                    <tr class="text-left">
+                                        <th width="15%">Cod</th>
+                                        <th width="55%">Nome do módulo</th>
+                                        <th width="15%" class="text-center">Editar</th>
+                                        <th width="15%" class="text-center">Apagar</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblModulo">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+            </div>
+            </section>
+        </div>
+
+        <div class="row" style="background-color:#ecf0f5 !important;">
+            <div class="container" style="background-color:#ecf0f5 !important;">
+                <section class="content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="box box-warning">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Aulas</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="nomedaaula">Nome do aula</label>
+                                        <input id="txtCadNomeAula" name="txtCadNomeAula" type="text" class="form-control" placeholder="Informe o nome da aula">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="modulodaaula">Módulo</label>
+                                        <input id="txtCadCodModulo" name="txtCadCodModulo" type="text" class="form-control" placeholder="Informe o código do módulo que a aula pertence" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="conteudoaula">Conteúdo da aula</label>
+                                        <textarea name="txtCadConteudoAula" id="txtCadConteudoAula" cols="30" rows="10" class="form-control"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="linkdaaula">Link da aula</label>
+                                        <input id="txtCadLinkAula" name="txtCadLinkAula" type="text" class="form-control" placeholder="Informe o link da aula">
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <button id="btnCadAula" name="btnCadAula" type="submit" class="btn btn-warning">Cadastrar aula</button>
+
+                                    <button id="btnSalvarAula" name="btnSalvarAula" type="submit" class="btn btn-warning" style="display:none;">Salvar alterações</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="box box-warning">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Pesquisar Aula</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input name="txtBuscarAula" id="txtBuscarAula" type="text" class="form-control" placeholder="Informe o código do módulo para listar todos as aulas">
+                                            <div class="input-group-btn">
+                                                <button name="btnBuscarAula" id="btnBuscarAula" class="btn btn-default" type="submit">
+                                                    <i class="glyphicon glyphicon-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table class="table table-bordered box box-warning" style="background-color:white">
+                                <thead>
+                                    <tr class="text-left">
+                                        <th width="15%">Cod</th>
+                                        <th width="55%">Nome da aula</th>
+                                        <th width="15%" class="text-center">Editar</th>
+                                        <th width="15%" class="text-center">Apagar</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblAula">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+            </div>
+            </section>
+        </div>
+    </div>
+    </div>
+    </div>
+    <footer class="main-footer">
+        <div class="container">
+            <strong>Copyright &copy; 2019 <a href="#">Instrue</a>.</strong> Todos os direitos reservados.
+        </div>
+    </footer>
+    </div>
+
+    <script>
+    $(document).ready(function() {
+         
+        	var usuarioLogado = sessionStorage.getItem("usuarioLogado");
+        	
+        	if(!usuarioLogado){
+        		window.location.href = 'login.html';
+        	}else{
+        		$("#nomeUser").append("<p>"+usuarioLogado+"</p>");	
+        	}
+    });
+    
+        $(document).ready(function(){
+            $("#txtBuscarCurso").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#tblCurso tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+        $(document).ready(function(){
+            $("#txtBuscarModulo").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#tblModulo tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+        $(document).ready(function(){
+            $("#txtBuscarAula").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#tblAula tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+
+    <!-- Bootstrap 3.3.6 -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="plugins/fastclick/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/app.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="dist/js/demo.js"></script>
+</body>
+
+</html>
