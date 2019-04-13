@@ -7,19 +7,14 @@ public class Usuario {
     private String email;
     private String nome;
     private String tipo;
-    private boolean status;
-    
-/*
- * Removido segundo nome
- */
-    public Usuario(int codigo, String login, String senha, String email, String nome, String tipo,
-			boolean status) {		
+    private boolean status;    
+
+    public Usuario(int codigo, String login, String senha, String email, String nome, String tipo, boolean status) {		
 		this.codigo = codigo;
 		this.login = login;
 		this.senha = senha;
 		this.email = email;
 		this.nome = nome;
-	
 		this.tipo = tipo;
 		this.status = status;
 	}
@@ -92,15 +87,4 @@ public class Usuario {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-    
-    
-    
-    //Métodos Próprios
-    public boolean comparar(Usuario usuario){
-        if(this.login.equals(usuario.login)){
-            return true;
-        }else{
-            return false;
-        }
-    }
 }

@@ -4,7 +4,7 @@ import java.util.List;
 import dao.*;
 import java.util.LinkedList;
 
-public class Model {
+public class Plataforma {
 	
 	private List<Curso> cursos = new LinkedList<Curso>();
 	private List<Usuario> usuarios = new LinkedList<Usuario>();		
@@ -180,7 +180,7 @@ public class Model {
 	public Usuario loginUsuario(String username, String password) {
 		for(Usuario usuario: usuarios) {
 			if(usuario.getLogin().equals(username) && usuario.getSenha().equals(password)){
-				return usuario;/*Validar o tipo aqui*/
+				return usuario;
 			}
 		}
 		return null;

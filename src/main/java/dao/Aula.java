@@ -77,23 +77,4 @@ public class Aula {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-    
-    
-	
-    //Métodos Próprios
-    public boolean comparar(Aula aula){
-        if(this.nome.equals(aula.nome)){
-            return true;
-        }else{
-            return false;
-        }
-    }
-    
-    public boolean comparar_fk(int cod_modulo){
-        if(this.cod_modulo == cod_modulo){
-            return true;
-        }else{
-            return false;
-        }
-    }
 }

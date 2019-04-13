@@ -1,4 +1,4 @@
-package hello;
+package start;
 
 import static spark.Spark.*;
 
@@ -7,11 +7,11 @@ import java.util.List;
 
 import controller.Controller;
 import dao.*;
-import model.Model;
+import model.Plataforma;
 
 public class MainServer {
 	
-	final static Model model = new Model();	
+	final static Plataforma model = new Plataforma();	
 	
 	private static List<Modulo> modulos = new LinkedList<Modulo>();	
 	
@@ -32,7 +32,7 @@ public class MainServer {
         }
         port(port);
 
-		//Servir conteudo html, css e javascript                   
+		//conteudo html, css e javascript                   
 		staticFileLocation("/static");    
 
 		inicializarPlataforma();
@@ -54,31 +54,28 @@ public class MainServer {
 		controller.alterarAula();
 		
 		controller.cadastrarUsuario();
+		
 		controller.login();
     }
-      
+       
     public static void inicializarPlataforma(){      
-    	
     	aulas1.add(new Aula(1,1,"Bem-Vindo","link","Bem-Vindo",true));    
     	aulas1.add(new Aula(2,1,"Variaveis e Tipos de Dados","link","Variaveis e Tipos de Dados",true));
     	aulas1.add(new Aula(3,1,"Sintaxe","link","Sintaxe",true));        
     	
-    	modulos.add(new Modulo(1,1,"Introdução",true, aulas1));          	 
-    	
+    	modulos.add(new Modulo(1,1,"Introdução",true, aulas1));  
     	
     	aulas2.add(new Aula(4,2,"If-Else","link","If-Else",true));
-    	aulas2.add(new Aula(5,2,"Switch-Case","link","Switch-Case",true));    
+    	aulas2.add(new Aula(5,2,"Switch-Case","link","Switch-Case",true));       
     	aulas2.add(new Aula(6,2,"Try-Catch","link","Try-Catch",true)); 
     	 	
     	modulos.add(new Modulo(2,1,"Estrutura de Decisão",true, aulas2)); 
-    	
     	
     	aulas3.add(new Aula(7,3,"For","link","For",true));
     	aulas3.add(new Aula(8,3,"While","link","While",true));
     	aulas3.add(new Aula(9,3,"Do While","link","Do While",true));  
     	 	
-    	modulos.add(new Modulo(3,1,"Estrutura de Repetição",true, aulas3));   
-    	
+    	modulos.add(new Modulo(3,1,"Estrutura de Repetição",true, aulas3));  
     	
     	aulas4.add(new Aula(10,4,"Public","link","Public",true));
     	aulas4.add(new Aula(11,4,"Private","link","Private",true));
@@ -86,13 +83,11 @@ public class MainServer {
     	 	
     	modulos.add(new Modulo(4,1,"Funções",true, aulas4));  
     	
-    	
-    	aulas5.add(new Aula(13,5,"Atributos","link","Atributos",true));                                  
+    	aulas5.add(new Aula(13,5,"Atributos","link","Atributos",true));                                    
     	aulas5.add(new Aula(14,5,"Métodos","link","Métodos",true));  
     	aulas5.add(new Aula(15,5,"Herança","link","Herança",true));  
     	 	
-    	modulos.add(new Modulo(5,1,"Orientação à Objetos",true, aulas5));         
-    	
+    	modulos.add(new Modulo(5,1,"Orientação à Objetos",true, aulas5));  
     	
     	model.cadastrarCurso(new Curso(1,"C","10h","Curso de Programção em linguagem C",true,"Back-End",modulos));  
     	
@@ -104,7 +99,6 @@ public class MainServer {
     	
     	model.cadastrarCurso(new Curso(5,"Ruby","4h","Curso de Programação em linguagem Ruby",true,"Cloud", modulos)); 
     	
-    	model.cadastrarUsuario(new Usuario(1,"admin","admin","administrador","instrue administrador","admin",true));
-    	model.loginUsuario("rone", "1234");
+    	model.cadastrarUsuario(new Usuario(1,"admin","admin","Administrador","Administrador","admin",true));
     }
 }

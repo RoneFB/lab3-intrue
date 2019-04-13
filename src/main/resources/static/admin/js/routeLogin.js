@@ -1,53 +1,44 @@
-
 $(document).ready(function(){
-	$('#btnEntrar').click(function(){    
+	$('form').submit(function(e){ 
 		
-		var user = $('#txtLogin').val().trim();
+		e.preventDefault();
 		
-		var password = $('#txtSenha').val().trim();
+		var user = $('#txtLogin').val().trim();		
 		
-		var url = "/login/"+user+"/"+password;
+		var password = $('#txtSenha').val().trim();	
 		
-		$.getJSON(url, function(data) {
-			sessionStorage.setItem("usuarioLogado", data.nome);
-			window.location.href = 'notifyLogin.html';	
-			/*if(data.status == true)8
+		//var url = "/login/"+user+"/"+password;
+		
+		$.post("/login/usuario", JSON.stringify({'usuario': user, 'senha': password}), function(data)
+		{
+			if(data[0].tipo == "admin"){
 				sessionStorage.setItem("usuarioLogado", data.nome);
-				window.location.href = 'admin.html';	
-			}	*/	 
-		}); 
-		window.location.href = 'notifyLogin.html';	
-		
+				window.location.href = 'admin.html';
+				//alert("login realizado");
+			}else{
+				window.location.href = 'login.html';
+				alert("erro");
+			}
+		}, "json" );	
+	});
+	  
+	$("#btnSair").click(function(){
+		sessionStorage.removeItem('usuarioLogado');
+		window.location.href = 'login.html';
 	});
 	
-	  /*Foi Adicionado o logout*/
-    $("#btnSair").click(function(){
-    	sessionStorage.removeItem('usuarioLogado');
-    	window.location.href = 'login.html';
-    })
-	
-	$(document).ready(function(){
-		
-		$("#btnCadUsuario").click(function() {
-			
-		 var login = $("#txtLogin").val();
-	     var senha = $("#txtSenha").val();
-	     var email = $("txtEmail").val();
-	     var nome = $("txtNome").val();
-	            
+	$("#btnCadUsuario").click(function() {
+		var login = $("#txtLogin").val();
+		var senha = $("#txtSenha").val();
+		var email = $("txtEmail").val();
+		var nome = $("txtNome").val();
+		   
 		var url = "/cadastrarUsuario/"+login+"/"+senha+"/"+email+"/"+nome+"";
-		
-		
-		    $.getJSON(url, function(data) 
-		    {   
-	            $.getJSON(url, function(data) {
-	            	window.location.href = 'login.html';
-	            });
-		    });
-	    
-	    
-	    });   
-		
-	})
-	
+   
+		$.getJSON(url, function(data) 
+		{
+			alert("Usuário cadastrado com sucesso");
+			window.location.href = 'login.html';
+		});
+   	});
 });

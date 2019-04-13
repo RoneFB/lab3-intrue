@@ -1,18 +1,30 @@
 package controller;
 
 import static spark.Spark.get;
+import static spark.Spark.post;
 
 import java.util.LinkedList;
 import java.util.List;
+
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.google.gson.Gson;
-import model.Model;
+
+
+import model.Plataforma;
+import spark.Request;
+import spark.Route;
+import spark.Response;
 import dao.*;
+
 
 public class Controller {
 	 
-	private Model model;	
+	private Plataforma model;	
 	
-	public Controller(Model model){
+	public Controller(Plataforma model){
 		this.model = model;
 	}
 	
@@ -145,47 +157,47 @@ public class Controller {
 	}
 	
 	public void login() {
-		get("/login/:username/:password", (req, res) -> {
+		/*get("/login/:username/:password", (req, res) -> {
 			Usuario usuarioEncontrado = model.loginUsuario(req.params(":username"), req.params(":password"));
 			return new Gson().toJson(usuarioEncontrado);
-		});
+		});*/
+		post("/login/usuario", new Route() {
+			@Override
+            public Object handle(final Request request, final Response response){
+	        	
+				response.header("Access-Control-Allow-Origin", "*");
+				
+				JSONObject json = new JSONObject(request.body());
+				
+				String username = json.getString("usuario");
+				String password = json.getString("senha");
+	        	
+				try {
+					
+					Usuario usuario = model.loginUsuario(username, password);
+					
+					if(usuario != null) {
+					
+						JSONArray jResult = new JSONArray();
+						JSONObject jObj = new JSONObject();
+						
+						jObj.put("nome", usuario.getNome());
+						jObj.put("tipo", usuario.getTipo());
+						jObj.put("status", usuario.isStatus());
+						
+						jResult.put(jObj);
+						return jResult;
+					}
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+	            
+				return null;
+	     	     
+	         }
+	         
+	      });
+			
 	}
-	
-	
-	/*
-	public void buscarCarroPlaca(){
-		get("/carro/:placa", (req, res) -> {
-		
-			
-			Carro carrosEncontrado = model.buscarPlaca(req.params(":placa"));	
-			return new Gson().toJson(carrosEncontrado);
-			
-		});
-	}
-	
-	public void buscarCarroModelo(){
-		get("/carro/modelo/:modelo", (req, res) -> { 
-		
-			
-			List<Carro> carrosEncontrado = model.buscarModelo(req.params(":modelo"));	
-			return new Gson().toJson(carrosEncontrado);
-			
-		});
-	}
-	
-	public void addCarro(){
-		get("/cadastrar/:modelo/:placa/:marca/:cor", (req, res) -> {
-			
-			//Especificacao espec = new Especificacao(req.params(":modelo"), req.params(":marca"), req.params(":cor"));
-		
-			//Carro carro = new Carro(req.params(":placa"), espec); 			
-			
-			model.addCarro(new Carro(req.params(":placa"), new Especificacao(req.params(":modelo"), req.params(":marca"), req.params(":cor"))));	
-			
-			Carro carrosEncontrado = model.buscarPlaca(req.params(":placa"));	
-			
-			return new Gson().toJson(carrosEncontrado); 
-		});
-	}
-	*/
 }

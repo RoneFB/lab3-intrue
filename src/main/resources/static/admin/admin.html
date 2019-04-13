@@ -1,6 +1,15 @@
+<script>
+   var usuarioLogado = sessionStorage.getItem("usuarioLogado");
+        
+    if(!usuarioLogado){
+        window.location.href = 'login.html';
+    }else{
+        $("#nomeUser").append("<p>"+usuarioLogado+"</p>");	
+    }
+</script>
+
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -302,46 +311,6 @@
         </div>
     </footer>
     </div>
-
-    <script>
-    $(document).ready(function() {
-         
-        	var usuarioLogado = sessionStorage.getItem("usuarioLogado");
-        	
-        	if(!usuarioLogado){
-        		window.location.href = 'login.html';
-        	}else{
-        		$("#nomeUser").append("<p>"+usuarioLogado+"</p>");	
-        	}
-    });
-    
-        $(document).ready(function(){
-            $("#txtBuscarCurso").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $("#tblCurso tr").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
-
-        $(document).ready(function(){
-            $("#txtBuscarModulo").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $("#tblModulo tr").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
-
-        $(document).ready(function(){
-            $("#txtBuscarAula").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $("#tblAula tr").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
-    </script>
 
     <!-- Bootstrap 3.3.6 -->
     <script src="bootstrap/js/bootstrap.min.js"></script>

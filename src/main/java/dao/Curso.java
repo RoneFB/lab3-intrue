@@ -80,33 +80,12 @@ public class Curso {
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
-    
 	
-	
-	//Métodos Próprios
     public List<Modulo> getModulos() {
         return modulos;
     }
-    
 
     public void cadastrarModulo(Modulo modulo){
         modulos.add(modulo);
-    }
-    
-
-    public Modulo pesquisarModuloNome(String nome){
-        for(Modulo modulo:modulos){
-            if(modulo.getNome().equals(nome)) return modulo;
-        }
-        return null;
-    }
-    
-
-    public boolean comparar(Curso curso){
-        if(this.nome.equals(curso.nome)){
-            return true;
-        }else{
-            return false;
-        }
     }
 }
