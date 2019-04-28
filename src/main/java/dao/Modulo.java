@@ -59,7 +59,10 @@ public class Modulo {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-   
+	
+	
+	
+    //M�todos Pr�prios
     public List<Aula> getAulas(){
         return aulas;
     }
@@ -67,5 +70,30 @@ public class Modulo {
 
     public void cadastrarAula(Aula aula){
         aulas.add(aula);
+    }
+    
+
+    public Aula pesquisarAulaNome(String nome){
+        for(Aula aula:aulas){
+            if(aula.getNome().equals(nome)) return aula;
+        }
+        return null;
+    }
+    
+
+    public boolean comparar(Modulo modulo){
+        if(this.nome.equals(modulo.nome)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public boolean comparar_fk(int cod_curso){
+        if(this.cod_curso == cod_curso){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

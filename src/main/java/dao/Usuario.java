@@ -7,15 +7,17 @@ public class Usuario {
     private String email;
     private String nome;
     private String tipo;
-    private boolean status;    
+    private String foto;
+	private boolean status;    
 
-    public Usuario(int codigo, String login, String senha, String email, String nome, String tipo, boolean status) {		
+    public Usuario(int codigo, String login, String senha, String email, String nome, String tipo, String foto, boolean status) {		
 		this.codigo = codigo;
 		this.login = login;
 		this.senha = senha;
 		this.email = email;
 		this.nome = nome;
 		this.tipo = tipo;
+		this.foto = foto;
 		this.status = status;
 	}
     
@@ -76,6 +78,16 @@ public class Usuario {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+	
+	
+	public String getFoto() {
+		return foto;
+	}
+
+
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 
 

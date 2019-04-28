@@ -43,8 +43,52 @@ footer .glyphicon {
   color: #2cb6e8;
 }
 
+hr {
+  margin: 5px;
+  padding: 0;
+}
+
 #main-courses {
   margin-top: -10%;
+}
+
+#about-course .btn {
+  border: 1px solid #2cb6e8;
+  background-color: #2cb6e8;
+  color: white;
+}
+#about-course .btn:hover {
+  border: 1px solid #2cb6e8;
+  background-color: white !important;
+  color: #2cb6e8;
+}
+
+#about-modules .module {
+  margin-bottom: 30px;
+  border: transparent;
+  border-radius: 5px;
+  box-shadow: 2px 0px 40px rgba(0, 0, 0, 0.2);
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+#about-modules .module .btn {
+  margin: 0;
+  border: 1px solid #2cb6e8;
+  background-color: #2cb6e8;
+  color: white;
+}
+#about-modules .module .btn:hover {
+  border: 1px solid #2cb6e8;
+  background-color: white !important;
+  color: #2cb6e8;
+}
+#about-modules .class {
+  margin-bottom: 30px;
+  border: transparent;
+  border-radius: 5px;
+  box-shadow: 2px 0px 40px rgba(0, 0, 0, 0.2);
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 /*PRÓPRIAS*/
@@ -86,6 +130,18 @@ footer .glyphicon {
 .jumbotron .row {
   position: relative;
   top: 20%;
+  left: 50%;
+  transform: translate(-50%, -20%);
+  text-align: center;
+}
+.jumbotron.jumbotron--course {
+  background-image: linear-gradient(to right bottom, #9fb8ad, #2cb6e8c0), url(../img/banner_course1.jpg);
+  background-position: center;
+  height: 40vh;
+}
+.jumbotron.jumbotron--course .row {
+  position: relative;
+  top: 25%;
   left: 50%;
   transform: translate(-50%, -20%);
   text-align: center;
@@ -476,6 +532,7 @@ footer .glyphicon {
   .jumbotron {
     width: 100%;
     padding: 0;
+    height: 380px;
   }
   .jumbotron h1 {
     font-size: 60px;
@@ -484,6 +541,24 @@ footer .glyphicon {
     top: 25%;
     width: 80%;
     text-align: center;
+  }
+  .jumbotron.jumbotron--course {
+    width: 100%;
+    padding: 0;
+    height: 300px;
+    margin-bottom: -6%;
+  }
+  .jumbotron.jumbotron--course h1 {
+    font-size: 48px;
+  }
+  .jumbotron.jumbotron--course .row {
+    top: 35%;
+    width: 80%;
+    text-align: center;
+  }
+
+  #lblTituloNomeCurso {
+    margin-top: -6%;
   }
 }
 @media screen and (max-width: 1100px) {

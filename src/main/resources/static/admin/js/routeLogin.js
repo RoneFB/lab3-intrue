@@ -1,25 +1,20 @@
 $(document).ready(function(){
-	$('form').submit(function(e){ 
-		
-		e.preventDefault();
-		
-		var user = $('#txtLogin').val().trim();		
-		
-		var password = $('#txtSenha').val().trim();	
-		
-		//var url = "/login/"+user+"/"+password;
-		
-		$.post("/login/usuario", JSON.stringify({'usuario': user, 'senha': password}), function(data)
+	$('#btnEntrar').click(function(){    		
+		var user = $('#txtLogin').val().trim();			
+		var password = $('#txtSenha').val().trim();		
+
+		var url = "/login/"+user+"/"+password;
+
+		$.getJSON(url, function(data) 
 		{
-			if(data[0].tipo == "admin"){
-				sessionStorage.setItem("usuarioLogado", data.nome);
+			sessionStorage.setItem("usuarioLogado", data.codigo);
+
+			if(data.tipo === "admin"){
 				window.location.href = 'admin.html';
-				//alert("login realizado");
 			}else{
-				window.location.href = 'login.html';
-				alert("erro");
+				window.location.href = 'classroom.html';
 			}
-		}, "json" );	
+		});
 	});
 	  
 	$("#btnSair").click(function(){
@@ -30,15 +25,20 @@ $(document).ready(function(){
 	$("#btnCadUsuario").click(function() {
 		var login = $("#txtLogin").val();
 		var senha = $("#txtSenha").val();
-		var email = $("txtEmail").val();
-		var nome = $("txtNome").val();
-		   
-		var url = "/cadastrarUsuario/"+login+"/"+senha+"/"+email+"/"+nome+"";
+		var email = $("#txtEmail").val();
+		var nome = $("#txtNome").val();
+		//var foto = $("#txtFoto").val();
+
+		if($("#chkTermos").is(":checked")){
+			var url = "/cadastrarUsuario/"+login+"/"+senha+"/"+email+"/"+nome+"";
    
-		$.getJSON(url, function(data) 
-		{
-			alert("Usuário cadastrado com sucesso");
-			window.location.href = 'login.html';
-		});
+			$.getJSON(url, function(data) 
+			{
+				alert("Usuário cadastrado com sucesso");
+				window.location.href = 'login.html';
+			});
+		}else{
+			alert("Favor concordar com os termos de uso");
+		}
    	});
 });

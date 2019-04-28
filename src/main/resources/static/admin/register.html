@@ -26,7 +26,28 @@
   <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
   <script type="text/javascript" src="js/routeLogin.js"></script>
 
+  <script>
+      var usuarioLogado = sessionStorage.getItem("usuarioLogado");
 
+      if (usuarioLogado) {
+        $(document).ready(function() {
+
+          //define rota
+          var url = "/buscarUsuario/"+usuarioLogado+"";   
+
+          //chama rota e trata o retorno
+          $.getJSON(url, function(data) 
+          {  
+              $("#txtNome").val(data.nome);
+              $("#txtEmail").val(data.email);
+              $("#txtLogin").val(data.login);
+              $("#txtSenha").val(data.senha);
+              $("#txtRSenha").val(data.senha);
+              $("#chkTermos").is(":checked");
+          });
+        });
+      }
+  </script>
 </head>
 <body class="hold-transition register-page">
 <div class="register-box">
@@ -37,12 +58,15 @@
   <div class="register-box-body">
     <!-- <form action="index.html" method="post"> -->
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Nome Completo" id="txtCompleteName" name="txtCompleteName">
+        <input type="text" class="form-control" placeholder="Nome Completo" id="txtNome" name="txtNome">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
         <input type="email" class="form-control" placeholder="Email" id="txtEmail" name="txtEmail">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="file" class="form-control-file" placeholder="Foto do perfil" id="txtFoto" name="txtFoto">
       </div>
       <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Login" id="txtLogin" name="txtLogin">
@@ -61,7 +85,7 @@
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox" id="checkTerms" name="checlTerms"> Li e aceito os <a href="#">termos de uso</a>
+              <input type="checkbox" id="chkTermos" name="chkTermos"> Li e aceito os <a href="#">termos de uso</a>
             </label>
           </div>
         </div>

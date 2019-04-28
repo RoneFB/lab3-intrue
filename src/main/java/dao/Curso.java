@@ -10,9 +10,9 @@ public class Curso {
     private String descricao; 
 	private boolean status; 
     private String categoria;    
-    private List<Modulo> modulos = new LinkedList<Modulo>();
+    private List<Modulo> modulos = new LinkedList<Modulo>(); 
 
-    public Curso(int codigo, String nome, String duracao, String descricao, boolean status, String categoria, List<Modulo> modulos) {
+    public Curso(int codigo, String nome, String duracao, String descricao, boolean status, String categoria) {
 		super();
 		this.codigo = codigo;
 		this.nome = nome;
@@ -20,7 +20,7 @@ public class Curso {
 		this.descricao = descricao;
 		this.status = status;
 		this.categoria = categoria;
-		this.modulos = modulos;
+		
 	}   
     
     
@@ -80,12 +80,33 @@ public class Curso {
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
+    
 	
+	
+	//Mï¿½todos Prï¿½prios
     public List<Modulo> getModulos() {
         return modulos;
     }
+    
 
     public void cadastrarModulo(Modulo modulo){
         modulos.add(modulo);
+    }
+    
+
+    public Modulo pesquisarModuloNome(String nome){
+        for(Modulo modulo:modulos){
+            if(modulo.getNome().equals(nome)) return modulo;
+        }
+        return null;
+    }
+    
+
+    public boolean comparar(Curso curso){
+        if(this.nome.equals(curso.nome)){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

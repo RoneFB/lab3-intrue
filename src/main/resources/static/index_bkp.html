@@ -23,11 +23,6 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- jQuery 2.2.3 -->
-    <script src="admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
-
-    <script src="admin/js/routeIndex.js"></script>
   </head>
   <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
       
@@ -77,8 +72,85 @@
 
     <!-- PRINCIPAIS CURSOS-->
     <div id="main-courses" class="container-fluid">
-        <div id="list-main-courses" class="row">
-            
+        <div class="row">
+            <div class="col-lg-2 col-md-3 col-sm-4">
+                <div class="panel panel--courses1 panel-default text-center">
+                    <div class="panel-heading panel-heading--courses1">
+                        &nbsp;
+                    </div>
+                    <div class="panel-body panel-body--courses">
+                        <img src="img/course_1.jpg" alt="Back-End" width="100%">
+                    </div>
+                    <div class="panel-footer panel-footer--courses1">
+                        <h4>Python Orientado à Objeto</h4>                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4">
+                <div class="panel panel--courses2 panel-default text-center">
+                    <div class="panel-heading panel-heading--courses2">
+                        &nbsp;
+                    </div>
+                    <div class="panel-body panel-body--courses">
+                        <img src="img/course_2.jpg" alt="Back-End" width="100%">
+                    </div>
+                    <div class="panel-footer panel-footer--courses2">
+                        <h4>HTML, CSS e JavaScript</h4>                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4">
+                <div class="panel panel--courses3 panel-default text-center">
+                    <div class="panel-heading panel-heading--courses3">
+                        &nbsp;
+                    </div>
+                    <div class="panel-body panel-body--courses">
+                        <img src="img/course_3.jpg" alt="Back-End" width="100%">
+                    </div>
+                    <div class="panel-footer panel-footer--courses3">
+                        <h4>Aplicações com React e Redux</h4>                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 hidden-sm">
+                <div class="panel panel--courses4 panel-default text-center">
+                    <div class="panel-heading panel-heading--courses4">
+                        &nbsp;
+                    </div>
+                    <div class="panel-body panel-body--courses">
+                        <img src="img/course_4.jpg" alt="Back-End" width="100%">
+                    </div>
+                    <div class="panel-footer panel-footer--courses4">
+                        <h4>Arqt e Modelagem de Dados</h4>                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 hidden-md hidden-sm">
+                <div class="panel panel--courses5 panel-default text-center">
+                    <div class="panel-heading panel-heading--courses5">
+                        &nbsp;
+                    </div>
+                    <div class="panel-body panel-body--courses">
+                        <img src="img/course_5.jpg" alt="Back-End" width="100%">
+                    </div>
+                    <div class="panel-footer panel-footer--courses5">
+                        <h4>Virtualização com AWS</h4>                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 hidden-md hidden-sm">
+                <div class="panel panel--courses6 panel-default text-center">
+                    <div class="panel-heading panel-heading--courses6">
+                        &nbsp;
+                    </div>
+                    <div class="panel-body panel-body--courses">
+                        <img src="img/course_6.jpg" alt="Back-End" width="100%">
+                    </div>
+                    <div class="panel-footer panel-footer--courses6">
+                        <h4>Bussiness Analytics c/ Power BI</h4>                        
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -163,15 +235,56 @@
     <div id="portfolio" class="container-fluid text-center bg-gray">
         <h2>Cursos</h2>
         <h4>Lorem ipsum dolor sit amet</h4>
-        <div id="list-courses">
-            
+        <div class="row text-center">
+            <div class="col-sm-4">
+                <div class="thumbnail" style="cursor: pointer" onclick="javascript: window.location.href='course.html'">
+                    <img src="img/course_1.jpg" alt="Back-End">
+                    <p><strong>Back-End</strong></p>
+                    <p>Lorem ipsum dolor sit amet</p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="thumbnail" style="cursor: pointer" onclick="javascript: window.location.href='course.html'">
+                    <img src="img/course_2.jpg" alt="Inter Bank">
+                    <p><strong>Front-End</strong></p>
+                    <p>Lorem ipsum dolor sit amet</p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="thumbnail" style="cursor: pointer" onclick="javascript: window.location.href='course.html'">
+                    <img src="img/course_3.jpg" alt="Submarino">
+                    <p><strong>Mobile</strong></p>
+                    <p>Lorem ipsum dolor sit amet</p>
+                </div>
+            </div>
         </div>
-        
+        <div class="row text-center">
+            <div class="col-sm-4">
+                <div class="thumbnail" style="cursor: pointer" onclick="javascript: window.location.href='course.html'">
+                    <img src="img/course_4.jpg" alt="Spotfy">
+                    <p><strong>Banco de Dados</strong></p>
+                    <p>Lorem ipsum dolor sit amet</p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="thumbnail" style="cursor: pointer" onclick="javascript: window.location.href='course.html'">
+                    <img src="img/course_5.jpg" alt="Inter Bank">
+                    <p><strong>Cloud</strong></p>
+                    <p>Lorem ipsum dolor sit amet</p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="thumbnail" style="cursor: pointer" onclick="javascript: window.location.href='course.html'">
+                    <img src="img/course_6.jpg" alt="Submarino">
+                    <p><strong>Bussiness</strong></p>
+                    <p>Lorem ipsum dolor sit amet</p>
+                </div>
+            </div>
+        </div>
+
         
         <!--DEPOIMENTOS-->
-        <div class="row">
-            <h2>O que dizem nossos alunos</h2>
-        </div>
+        <h2>O que dizem nossos alunos</h2>
         <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
