@@ -12,7 +12,7 @@ public class Curso {
     private String categoria;    
     private List<Modulo> modulos = new LinkedList<Modulo>(); 
 
-    public Curso(int codigo, String nome, String duracao, String descricao, boolean status, String categoria) {
+    public Curso(int codigo, String nome, String duracao, String descricao, boolean status, String categoria, List<Modulo> modulos) {
 		super();
 		this.codigo = codigo;
 		this.nome = nome;
@@ -20,7 +20,7 @@ public class Curso {
 		this.descricao = descricao;
 		this.status = status;
 		this.categoria = categoria;
-		
+		this.modulos = modulos;
 	}   
     
     
@@ -83,7 +83,7 @@ public class Curso {
     
 	
 	
-	//Mï¿½todos Prï¿½prios
+	//M�todos Pr�prios
     public List<Modulo> getModulos() {
         return modulos;
     }

@@ -62,7 +62,7 @@ public class Modulo {
 	
 	
 	
-    //Mï¿½todos Prï¿½prios
+    //Métodos Próprios
     public List<Aula> getAulas(){
         return aulas;
     }

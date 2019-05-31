@@ -1,8 +1,58 @@
+//atribui a variavel o valor da sessão
+var cod_usuario = sessionStorage.getItem("usuarioLogado");
+
+function alterarProgresso(cod_curso, cod_modulo, cod_aula){
+
+    //define rota
+    var url = "/alterarProgressoCurso/"+cod_usuario+"/"+cod_curso+"/"+cod_modulo+"/"+cod_aula+"";
+
+    $.getJSON(url, function(data) 
+    {
+        exibirConteudoAula(cod_curso);
+    });
+}
+
+function exibirConteudoAula(cod_curso){
+    //limpa area do conteudo
+    document.getElementById("contentClass").innerHTML = "";
+
+    //define rota
+    var url = "/usuarioCurso/"+cod_usuario+"/"+cod_curso+"";
+
+    $.getJSON(url, function(data) 
+    { 
+        //define rota
+        var url1 = "/curso/" + cod_curso;
+       
+        //carrega o curso
+        $.getJSON(url1, function(data1) 
+        {  
+            //define variavel
+            var aula;
+
+            //carrega os modulos
+            $.each(data1.modulos, function(i) 
+            {
+                //define o indice do vetor que se encontra o modulo especifico
+                indexAula = data1.modulos.indexOf(data1.modulos[i]);
+
+                //carrega as aulas
+                $.each(data1.modulos[indexAula].aulas, function(i) 
+                {
+                    if(this.cod === data.cod_aula){
+                        aula = "<div class='box box-default'><div class='box-header with-border'><h3 class='box-title'>"+this.nome+"</h3></div><div class='box-body'><div class='row text-center'><br><iframe width='560' height='315' src='https://www.youtube.com/embed/kkOSweUhGZM' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div><div class='box-body' style='padding:25px;'><h3>"+this.nome+"</h3><h4 class='text-justify'>"+this.conteudo+"</h4></div><div class='box-footer text-right' style='padding: 10px 0 0 0;'></div></div></div>";
+                    }
+                });
+                
+            });
+
+            $("#contentClass").append(aula);
+        });
+    });
+}
+
 function exibirAula(cod_curso){
     $("#lstCursos").hide();
-
-    //atribui a variavel o valor da sessão
-    var cod_usuario = sessionStorage.getItem("usuarioLogado");
 
     //define rota
     var url = "/usuarioCurso/"+cod_usuario+"/"+cod_curso+"";
@@ -19,12 +69,12 @@ function exibirAula(cod_curso){
             var aula;
             var menu = "";
 
-            menu = menu + "<li class='header'>"+this.nome+"</li>";
+            menu = menu + "<li class='header'>"+data1.nome+"</li>";
 
             //carrega os modulos
             $.each(data1.modulos, function(i) 
             {
-                menu = menu + "<li class='treeview'><a href='#'><i class='fa fa-link'></i><span>"+this.nome+"</span><span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i></span></a><ul class='treeview-menu'>";
+                menu = menu + "<li class='treeview'><a href='#' style='cursor:pointer'><i class='glyphicon glyphicon-console' style='font-size:14px'></i><span> "+this.nome+"</span><span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i></span></a><ul class='treeview-menu'>";
 
                 //define o indice do vetor que se encontra o modulo especifico
                 indexAula = data1.modulos.indexOf(data1.modulos[i]);
@@ -32,17 +82,15 @@ function exibirAula(cod_curso){
                 //carrega as aulas
                 $.each(data1.modulos[indexAula].aulas, function(i) 
                 {
-                    menu = menu + "<li><a id='"+this.cod+"' onClick='exibirAula(this.id)'>"+this.nome+"</a></li>";
+                    menu = menu + "<li><a id='"+this.cod+"' name='"+data1.modulos[indexAula].cod+"' style='cursor:pointer' onClick='alterarProgresso("+data1.codigo+", this.name, this.id)'>"+this.nome+"</a></li>";
 
                     if(this.cod === data.cod_aula){
-                        aula = "<div class='box box-default'><div class='box-header with-border'><h3 class='box-title'>"+this.nome+"</h3></div><div class='box-body'><div class='row text-center'><br><iframe width='560' height='315' src='https://www.youtube.com/embed/kkOSweUhGZM' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div><div class='box-body' style='padding:25px;'><h3>"+this.nome+"</h3><h4 class='text-justify'>"+this.conteudo+"</h4></div><div class='box-footer text-right' style='padding: 10px 0 0 0;'><input type='button' value='avançar' class='btn btn-lg btn-primary'></div></div></div>";
+                        aula = "<div class='box box-default'><div class='box-header with-border'><h3 class='box-title'>"+this.nome+"</h3></div><div class='box-body'><div class='row text-center'><br><iframe width='560' height='315' src='https://www.youtube.com/embed/kkOSweUhGZM' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div><div class='box-body' style='padding:25px;'><h3>"+this.nome+"</h3><h4 class='text-justify'>"+this.conteudo+"</h4></div><div class='box-footer text-right' style='padding: 10px 0 0 0;'></div></div></div>";
                     }
                 });
 
-                menu = menu + "</ul>";
+                menu = menu + "</ul></li>";
             });
-
-            menu = menu + "</li>";
 
             $("#contentClass").append(aula);
             $("#menuCourse").append(menu);

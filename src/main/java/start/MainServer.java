@@ -2,6 +2,8 @@ package start;
 
 import static spark.Spark.*;
 
+import java.util.LinkedList;
+import java.util.List;
 
 import controller.Controller;
 import dao.*;
@@ -11,7 +13,12 @@ public class MainServer {
 	
 	final static Plataforma model = new Plataforma();	
 	
-          
+	private static List<Modulo> modulos = new LinkedList<Modulo>();	    
+	private static List<Aula> aulas1 = new LinkedList<Aula>();          
+	private static List<Aula> aulas2 = new LinkedList<Aula>();                     
+	private static List<Aula> aulas3 = new LinkedList<Aula>();                                                   
+	private static List<Aula> aulas4 = new LinkedList<Aula>();                       
+	private static List<Aula> aulas5 = new LinkedList<Aula>();          
 		
     public static void main(String[] args) {
 		// Get port config of heroku on environment variable
@@ -21,15 +28,13 @@ public class MainServer {
             port = Integer.parseInt(process.environment().get("PORT"));    
         } else {
             port = 8083;        
-        }  
+        }
         port(port);
 
 		//conteudo html, css e javascript                   
 		staticFileLocation("/static");    
 
-		//inicializarPlataforma();
-		model.cadastrarUsuario(new Usuario(1,"admin","admin","admin@email.com","Othon Godoy","admin",
-    			"img/users/personal-photo.jfif",true));
+		inicializarPlataforma();
 
 		Controller controller = new Controller(model);                                      
 		 
@@ -39,7 +44,7 @@ public class MainServer {
 		controller.excluirCurso();
 		controller.alterarCurso();
 		 
-		controller.cadastrarModulo();                 
+		controller.cadastrarModulo();                  
 		controller.excluirModulo();  
 		controller.alterarModulo();
 		
@@ -49,15 +54,16 @@ public class MainServer {
 		 
 		controller.buscarUsuario();  
 		controller.cadastrarUsuario();   
-		controller.login();
+		controller.login(); 
 		
 		controller.inscreverCurso();
-		controller.listarUsuarioCursos();
-		controller.alterarProgressoCurso();
+		controller.listarUsuarioCursos();   
+		controller.alterarProgressoCurso();                    
 		controller.buscarUsuarioCurso();
     }
       
-  /* public static void inicializarPlataforma(){      
+    public static void inicializarPlataforma(){      
+    	/*
     	aulas1.add(new Aula(1,1,"Bem-Vindo","link","Bem-Vindo",true));       
     	aulas1.add(new Aula(2,1,"Variaveis e Tipos de Dados","link","Variaveis e Tipos de Dados",true)); 
     	aulas1.add(new Aula(3,1,"Sintaxe","link","Sintaxe",true));          
@@ -82,11 +88,11 @@ public class MainServer {
     	 	
     	modulos.add(new Modulo(4,1,"Funções",true, aulas4));  
     	 
-    	aulas5.add(new Aula(13,5,"Atributos","link","Atributos",true));                                                                                   
+    	aulas5.add(new Aula(13,5,"Atributos","link","Atributos",true));                                                                                      
     	aulas5.add(new Aula(14,5,"Métodos","link","Métodos",true));   
     	aulas5.add(new Aula(15,5,"Herança","link","Herança",true));   
     	 	
-    	modulos.add(new Modulo(5,1,"Orientação à Objetos",true, aulas5));         	             
+    	modulos.add(new Modulo(5,1,"Orientação à Objetos",true, aulas5));           	             
     	
     	model.cadastrarCurso(new Curso(1,"Programação com Python","10h",
     			"Neste curso, você aprenderá os fundamentos da linguagem de programação Python, juntamente com as melhores práticas de programação. Você aprenderá a representar e armazenar dados usando tipos e variáveis ​​de dados do Python e usar condicionais e loops para controlar o fluxo de seus programas. Por fim, você aprenderá a encontrar e usar módulos na Biblioteca Padrão do Python e em outras bibliotecas de terceiros.",true,"Back-End",modulos));  
@@ -111,5 +117,6 @@ public class MainServer {
     	
     	model.cadastrarUsuario(new Usuario(2,"aluno","aluno","aluno@email.com","Rafael Ferreira","aluno",
     			"img/users/user.png",true));
-    }*/
+    	*/
+    }
 }
