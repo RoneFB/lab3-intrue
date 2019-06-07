@@ -6,16 +6,16 @@ Ferramentas utilizadas: Eclipse, Gradle, StarUML.
 
 Programação: Java, Javascript-JQuery, HTML, CSS (Bootstrap).</p>
 
-<h3>UML:</h3>
+UML:
 ![UML](uml/UML.jpg)
 
-<h3>Home:</h3>
+Home:
 ![0001](img/0001.png)
 
-<h3>Login:</h3>
+Login:
 ![0002](img/0002.png)
 
-<h3>Admin:</h3>
+Admin:
 ![0003](img/0003.png)
 
 
