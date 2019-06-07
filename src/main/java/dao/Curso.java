@@ -10,7 +10,7 @@ public class Curso {
     private String descricao; 
 	private boolean status; 
     private String categoria;    
-    private List<Modulo> modulos = new LinkedList<Modulo>(); 
+    private List<Modulo> modulos = new LinkedList<Modulo>();
 
     public Curso(int codigo, String nome, String duracao, String descricao, boolean status, String categoria, List<Modulo> modulos) {
 		super();
@@ -83,7 +83,7 @@ public class Curso {
     
 	
 	
-	//Mï¿½todos Prï¿½prios
+	//Métodos Próprios
     public List<Modulo> getModulos() {
         return modulos;
     }

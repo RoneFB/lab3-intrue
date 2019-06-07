@@ -1,26 +1,12 @@
 package controller;
 
 import static spark.Spark.get;
-import static spark.Spark.post;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.google.gson.Gson;
-
-import dao.Aula;
-import dao.Curso;
-import dao.Modulo;
-import dao.Usuario;
-import dao.UsuarioCurso;
 import model.Plataforma;
-import spark.Request;
-import spark.Response;
-import spark.Route;
+import dao.*;
 
 public class Controller {
 	 
@@ -34,7 +20,7 @@ public class Controller {
 		get("/cursos/", (req, res) -> {	
 			List<Curso> cursosEncontrados = model.listarCursos();	   
 			return new Gson().toJson(cursosEncontrados);			
-		});
+		}); 
 	}
 	
 	public void buscarCurso(){
@@ -55,54 +41,6 @@ public class Controller {
 			List<Curso> cursosEncontrados = model.listarCursos();	
 			return new Gson().toJson(cursosEncontrados);		
 		});
-		
-		/*
-		post("/cadastrarCurso/", new Route() {
-			@Override
-            public Object handle(final Request request, final Response response){
-	        	
-	           response.header("Access-Control-Allow-Origin", "*");
-	        	
-	           JSONObject json = new JSONObject(request.body());
-	        	
-	           Integer codigo = Integer.parseInt(json.getString("codigo"));
-	           String nome = json.getString("nome");
-	           String categoria = json.getString("categoria");
-	           String descricao = json.getString("descricao");
-	           String duracao = json.getString("duracao");
-	           List<Modulo> modulos = new LinkedList<Modulo>();
-	           
-	           JSONArray jsonResult = new JSONArray();
-         	    
-         	   try {
-         		   
-         		  model.cadastrarCurso(new Curso(codigo, nome, duracao, descricao, true, 
-         				  categoria, modulos));
-         		  
-         		  List<Curso> cursos = model.listarCursos();
-         		  
-         		  for(Curso curso:cursos){
-         			  JSONObject jsonObj = new JSONObject();
-         			  jsonObj.put("codigo", curso.getCodigo());
-         			  jsonObj.put("nome", curso.getNome());
-         			  jsonObj.put("duracao", curso.getDuracao());
-         			  jsonObj.put("descricao", curso.getDescricao());
-         			  jsonObj.put("categoria", curso.getCategoria());
-         			  jsonObj.put("modulos", curso.getModulos());
-            		
-         			  jsonResult.put(jsonObj);
-         		  }
-	             	
-	         	  return jsonResult; 
-	             	
-         	   } catch (JSONException e) {	        				
-	        		e.printStackTrace();
-         	   }
-         	    
-         	  return null;
-		   }
-		});  
-		*/  
 	}
 	
 	public void excluirCurso(){
@@ -124,53 +62,6 @@ public class Controller {
 			List<Curso> cursosEncontrados = model.listarCursos();	
 			return new Gson().toJson(cursosEncontrados);		
 		});
-		
-		/*
-		post("/alterarCurso/", new Route() {
-			@Override
-            public Object handle(final Request request, final Response response){
-	        	
-	           response.header("Access-Control-Allow-Origin", "*");
-	        	
-	           JSONObject json = new JSONObject(request.body());
-	           
-	           Integer codigo = Integer.parseInt(request.params("codigo"));
-	           String nome = json.getString("nome");
-	           String categoria = json.getString("categoria");
-	           String descricao = json.getString("descricao");
-	           String duracao = json.getString("duracao");
-	           
-	           JSONArray jsonResult = new JSONArray();
-         	    
-         	   try {
-         		   
-         		  model.alterarCurso(codigo, nome, categoria, 
-      					descricao, duracao);
-         		  
-         		  List<Curso> cursos = model.listarCursos();
-         		  
-         		  for(Curso curso:cursos){
-         			  JSONObject jsonObj = new JSONObject();
-         			  jsonObj.put("codigo", curso.getCodigo());
-         			  jsonObj.put("nome", curso.getNome());
-         			  jsonObj.put("duracao", curso.getDuracao());
-         			  jsonObj.put("descricao", curso.getDescricao());
-         			  jsonObj.put("categoria", curso.getCategoria());
-         			  jsonObj.put("modulos", curso.getModulos());
-            		
-         			  jsonResult.put(jsonObj);
-         		  }
-	             	
-	         	  return jsonResult; 
-	             	
-         	   } catch (JSONException e) {	        				
-	        		e.printStackTrace();
-         	   }
-         	    
-         	  return null;
-		   }
-		}); 
-		*/
 	}
 	
 	public void cadastrarModulo(){
@@ -250,8 +141,8 @@ public class Controller {
 	public void cadastrarUsuario()	{
 		get("/cadastrarUsuario/:login/:senha/:email/:nome", (req, res) -> {
 			
-			model.cadastrarUsuario(new Usuario(model.listarUsuarios().size()+1, req.params(":login"), req.params(":senha"), req.params(":email"), 
-					req.params(":nome"), "aluno", "img/users/user.png", true));	
+			model.cadastrarUsuario(new Usuario(2, req.params(":login"), req.params(":senha"), req.params(":email"), 
+					req.params(":nome"), "admin", "img/users/user.png", true));	
 			
 			Usuario usuarioCadastrado = model.buscarUsuario(2);
 			return new Gson().toJson(usuarioCadastrado);		
@@ -262,38 +153,6 @@ public class Controller {
 		get("/login/:username/:password", (req, res) -> {
 			Usuario usuarioEncontrado = model.loginUsuario(req.params(":username"), req.params(":password"));
 			return new Gson().toJson(usuarioEncontrado);
-		});
-	}
-	
-	public void listarUsuarioCursos() {
-		get("/listarUsuarioCursos/:cod_usuario", (req, res) -> {
-			List<Curso> cursosInscritos = model.buscarCursosInscritos(Integer.parseInt(req.params(":cod_usuario")));
-			return new Gson().toJson(cursosInscritos);
-		});
-	}
-	
-	public void buscarUsuarioCurso() {
-		get("/usuarioCurso/:cod_usuario/:cod_curso", (req, res) -> {
-			UsuarioCurso usuarioCurso = model.buscarUsuarioCurso(Integer.parseInt(req.params(":cod_usuario")), 
-					Integer.parseInt(req.params(":cod_curso")));
-			return new Gson().toJson(usuarioCurso);
-		});
-	}
-	
-	public void inscreverCurso() {
-		get("/inscreverCurso/:cod_usuario/:cod_curso", (req, res) -> {
-			Boolean usuarioInscrito = model.inscreverCurso(Integer.parseInt(req.params(":cod_usuario")), 
-					Integer.parseInt(req.params(":cod_curso")));
-			return new Gson().toJson(usuarioInscrito);
-		});
-	}
-	
-	public void alterarProgressoCurso() {
-		get("/alterarProgressoCurso/:cod_usuario/:cod_curso/:cod_modulo/:cod_aula", (req, res) -> {
-			Boolean progressoAlterado = model.alterarProgressoCurso(Integer.parseInt(req.params(":cod_usuario")), 
-					Integer.parseInt(req.params(":cod_curso")), Integer.parseInt(req.params(":cod_modulo")), 
-					Integer.parseInt(req.params(":cod_aula")));
-			return new Gson().toJson(progressoAlterado);
 		});
 	}
 }
