@@ -1,4 +1,4 @@
-Projeto instrue FATEC 2019 - BBANCO DE DADOS
+Projeto instrue FATEC 2019 - BANCO DE DADOS
 
 Sistema para controle de cursos online.
 
