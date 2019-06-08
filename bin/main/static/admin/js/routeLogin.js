@@ -8,7 +8,12 @@ $(document).ready(function(){
 		$.getJSON(url, function(data) 
 		{
 			sessionStorage.setItem("usuarioLogado", data.codigo);
-			window.location.href = 'admin.html';
+
+			if(data.tipo === "admin"){
+				window.location.href = 'admin.html';
+			}else{
+				window.location.href = 'classroom.html';
+			}
 		});
 	});
 	  

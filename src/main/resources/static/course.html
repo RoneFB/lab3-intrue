@@ -27,47 +27,8 @@
     <!-- jQuery 2.2.3 -->
     <script src="admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
 
-    <script>
-        var url = window.location.search;
-        var cod_curso = url.replace('?','');
+    <script src="admin/js/routeCourse.js"></script>
 
-        $(document).ready(function() {
-            //define rota
-            var url = "/curso/"+cod_curso+"";   
-
-            var lstModulos;
-
-            //chama rota e trata o retorno
-            $.getJSON(url, function(data) 
-            {  
-                $("#lblNomeCurso").append(data.nome);
-                data.descricao = data.descricao.replace(/(?:\r\n|\r|\n)/g, '<br />');
-                $("#lblSobreCurso").append(data.descricao);
-
-                lstModulos = "<h2>"+data.nome+"</h2>";
-
-                $.each(data.modulos, function(i) 
-                {
-                    lstModulos = lstModulos + "<div class='row module'><div class='col-sm-2 text-center'><h3 style='margin-top:10px'>Modulo "+this.cod+"</h3></div><div class='col-sm-7 text-left'><h3 style='margin-top:10px'><strong>"+this.nome+"</strong></h3></div><div class='col-sm-3 text-right'><button class='btn btn-default btn-lg' data-toggle='collapse' data-target='#class"+this.cod+"'>ver aulas</button></div></div>";
-
-                    lstModulos = lstModulos + "<div id='class"+this.cod+"' class='row collapse class'>";
-
-                    indexAula = data.modulos.indexOf(data.modulos[i]);
-
-                    $.each(data.modulos[indexAula].aulas, function(j) 
-                    {
-                        lstModulos = lstModulos + "<div class='row'><div class='col-sm-2 text-center'><h4 style='margin:5px 0 0 0'>Aula "+this.cod+"</h4></div><div class='col-sm-7 text-left'><h4 style='margin:5px 0 0 0'><strong>"+this.nome+"</strong></h4></div><div class='col-sm-3 text-right'>&nbsp;</div></div><hr>";
-                    });
-
-                    lstModulos = lstModulos + "</div>";
-                });
-
-                $("#list-modules").append(lstModulos);
-            });
-
-            
-        });
-    </script>
   </head>
   <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
       
@@ -96,19 +57,25 @@
         </div>
     </nav>
 
+    <div id="banner-course" class="jumbotron jumbotron--course">
+        <div class="row">
+            <h1><strong id="lblNomeCurso"></strong></h1>
+            <p id="lblCategoriaCurso"></p>            
+        </div>
+    </div>
+
 
     <!--SOBRE O CURSO-->
     <div id="about-course" class="container-fluid">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <h2 id="lblNomeCurso"></h2>
                     <h4 id="lblSobreCurso" class="text-left"></h4> 
                     <br>
 
-                    <button class="btn btn-default btn-lg">inscreva-se</button>
+                    <button id="btnInscrever" name="btnInscrever" class="btn btn-default btn-lg">inscreva-se</button>
                 </div>
-                <div class="col-sm-6 text-right" style="padding-top:30px">
+                <div class="col-sm-6 text-right" style="padding-top:20px">
                     <iframe width="90%" height="250" src="https://www.youtube.com/embed/kkOSweUhGZM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>

@@ -9,16 +9,18 @@ public class Curso {
     private String duracao;
     private String descricao; 
 	private boolean status; 
-    private String categoria;    
-    private List<Modulo> modulos = new LinkedList<Modulo>();
+	private String thumbnail;
+	private String categoria;    
+    private List<Modulo> modulos = new LinkedList<Modulo>(); 
 
-    public Curso(int codigo, String nome, String duracao, String descricao, boolean status, String categoria, List<Modulo> modulos) {
+    public Curso(int codigo, String nome, String duracao, String descricao, boolean status, String thumbnail, String categoria, List<Modulo> modulos) {
 		super();
 		this.codigo = codigo;
 		this.nome = nome;
 		this.duracao = duracao;
 		this.descricao = descricao;
 		this.status = status;
+		this.thumbnail = thumbnail;
 		this.categoria = categoria;
 		this.modulos = modulos;
 	}   
@@ -70,6 +72,15 @@ public class Curso {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
+	
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
 
 
 	public String getCategoria() {
@@ -83,7 +94,7 @@ public class Curso {
     
 	
 	
-	//Métodos Próprios
+	//Mï¿½todos Prï¿½prios
     public List<Modulo> getModulos() {
         return modulos;
     }

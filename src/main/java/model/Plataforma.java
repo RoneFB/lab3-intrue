@@ -8,110 +8,106 @@ import com.db4o.ObjectSet;
 import com.db4o.query.Query;
 
 import dao.*;
+
 import java.util.LinkedList;
 
 public class Plataforma {
 	
-	private List<Curso> cursos = new LinkedList<Curso>();
-	private List<Usuario> usuarios = new LinkedList<Usuario>();		
-	
-	ObjectContainer bdCursos = 
-			Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "bd/cursos.db4o");
-	ObjectContainer bdUsuario = 
-			Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "bd/usuario.db4o");
-	
+	ObjectContainer cursos = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "bd/cursos.db4o");
+	ObjectContainer usuarios = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "bd/usuarios.db4o");
+	ObjectContainer usuariosCursos = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "bd/usuariosCursos.db4o");
+		
 	public List<Curso> listarCursos(){
-		Query query = bdCursos.query();
+		Query query = cursos.query();
 		query.constrain(Curso.class);
-		List<Curso> allCursos = query.execute();/*Transforma a lista em DATA*/ 
+		List<Curso> allCursos = query.execute();
+		
 		return allCursos;
 	}
 	
 	public Curso buscarCursoCod(int codigo){
-		Query query  = bdCursos.query();
-		query.constrain(Curso.class);
-		ObjectSet<Curso> allCursos = query.execute();
-		for(Curso curso: allCursos) {
-			if(curso.getCodigo() == codigo) {
-				return curso;
-			}
+		List<Curso> allCursos = listarCursos();
+		
+		for(Curso curso:allCursos){
+			if(curso.getCodigo() == codigo) return curso;
 		}
+		
 		return null;
 	}
 	
 	public void cadastrarCurso(Curso curso){
-		//cursos.add(curso);
-		Query query =  bdCursos.query();
-		query.constrain(Curso.class);
-		List<Curso> allCursos = query.execute();
-		curso.setCodigo(allCursos.size() +1 );
-		bdCursos.store(curso);
-		bdCursos.commit();
-		
+		cursos.store(curso);
+		cursos.commit();
 	}
 	
 	public void excluirCurso(int codigo){
-		Query query = bdCursos.query();
-		query.constrain(Curso.class);
-		List<Curso> allCursos = query.execute();
-		
+		List<Curso> allCursos = listarCursos();
 		
 		for(Curso curso:allCursos){ 
 			if(curso.getCodigo() == codigo){ 
-				bdCursos.delete(curso);
-				bdCursos.commit();
-				for(Curso i:allCursos) {
-					/*Terminal o excluir*/
-					i.setCodigo(i.getCodigo() - 1);
-					bdCursos.store(i);
-					bdCursos.commit();
-				}
+				cursos.delete(curso);
+				cursos.commit();
 				break;
 			}
 		}
 	}
 	
 	public void alterarCurso(int codigo, String nome, String categoria, String descricao, String duracao){
-		for(Curso curso:cursos){
+		List<Curso> allCursos = listarCursos();
+		
+		for(Curso curso:allCursos){
 			if(curso.getCodigo() == codigo){
 				curso.setNome(nome);
 				curso.setCategoria(categoria);
 				curso.setDescricao(descricao);
 				curso.setDuracao(duracao);
 				
+				cursos.store(curso);
+				cursos.commit();
 				break;
 			}
 		}
 	}
 	
 	public List<Modulo> listarModulos(int codigo){
-		List<Modulo> modulosEncontrados = new LinkedList<Modulo>();
+		List<Curso> allCursos = listarCursos();
+		List<Modulo> allModulos = new LinkedList<Modulo>();
 		
-		for(Curso curso:cursos){
+		for(Curso curso:allCursos){
 			 if(curso.getCodigo() == codigo){
-				 modulosEncontrados = curso.getModulos();  
+				 allModulos = curso.getModulos();  
 				 break;
 			 }
 		}
 		
-		return modulosEncontrados;
+		return allModulos;
 	}
 	
 	public void cadastrarModulo(Modulo modulo, int codigo){ 
-		for(Curso curso:cursos){
+		List<Curso> allCursos = listarCursos();
+		
+		for(Curso curso:allCursos){
 			if(curso.getCodigo() == codigo){
 				curso.getModulos().add(modulo);
+				
+				cursos.store(curso);
+				cursos.commit();
 				break;
 			}
 		}
 	}
 	
 	public void excluirModulo(int codigo, int cod_modulo){
-		for(Curso curso:cursos){
+		List<Curso> allCursos = listarCursos();
+		
+		for(Curso curso:allCursos){
 			if(curso.getCodigo() == codigo){
 				for(Modulo modulo:curso.getModulos()){
 					if(modulo.getCod() == cod_modulo){
 						curso.getModulos().remove(modulo);
+						
+						cursos.store(curso);
+						cursos.commit();
 						break;
 					}
 				}
@@ -121,11 +117,16 @@ public class Plataforma {
 	}
 	
 	public void alterarModulo(int cod, String nome, int codigo){
-		for(Curso curso:cursos){
+		List<Curso> allCursos = listarCursos();
+		
+		for(Curso curso:allCursos){
 			if(curso.getCodigo() == codigo){
 				for (Modulo modulo:curso.getModulos()){
 					if(modulo.getCod() == cod){
 						modulo.setNome(nome);
+						
+						cursos.store(curso);
+						cursos.commit();
 						break;
 					}
 				}
@@ -135,38 +136,51 @@ public class Plataforma {
 	}
 	
 	public List<Aula> listarAulas(int codigo, int cod_modulo){
-		List<Modulo> modulosEncontrados = listarModulos(codigo);
-		List<Aula> aulasEncontradas = new LinkedList<Aula>();
+		List<Modulo> allModulos = listarModulos(codigo);
+		List<Aula> allAulas = new LinkedList<Aula>();
 		
-		for(Modulo modulo:modulosEncontrados){
+		for(Modulo modulo:allModulos){
 			if(modulo.getCod() == cod_modulo){
-				aulasEncontradas = modulo.getAulas();
+				allAulas = modulo.getAulas();
 				break;
 			}
 		}
 		
-		return aulasEncontradas;
+		return allAulas;
 	}
 	
 	public void cadastrarAula(Aula aula, int codigo, int cod_modulo){
-		 List<Modulo> modulosEncontrados = listarModulos(codigo);
+		List<Curso> allCursos = listarCursos();
 		
-		for(Modulo modulo:modulosEncontrados){ 
-			if(modulo.getCod() == cod_modulo){ 
-				modulo.getAulas().add(aula);
+		for(Curso curso:allCursos) {
+			if(curso.getCodigo() == codigo) {
+				for(Modulo modulo:curso.getModulos()){ 
+					if(modulo.getCod() == cod_modulo){ 
+						modulo.getAulas().add(aula);
+						
+						cursos.store(curso);
+						cursos.commit();
+						break;
+					}
+				}
 				break;
 			}
 		}
 	}
 	
 	public void excluirAula(int codigo, int cod_modulo, int cod_aula){
-		for(Curso curso:cursos){
+		List<Curso> allCursos = listarCursos();
+		
+		for(Curso curso:allCursos){
 			if(curso.getCodigo() == codigo){
 				for(Modulo modulo:curso.getModulos()){ 
 					if(modulo.getCod() == cod_modulo){
 						for(Aula aula:modulo.getAulas()){
 							if(aula.getCod() == cod_aula){
 								modulo.getAulas().remove(aula);
+								
+								cursos.store(curso);
+								cursos.commit();
 								break;
 							}
 						}
@@ -179,7 +193,9 @@ public class Plataforma {
 	}
 	
 	public void alterarAula(int cod, int cod_modulo, String nome, String link, String conteudo, int codigo){
-		for(Curso curso:cursos){
+		List<Curso> allCursos = listarCursos();
+		
+		for(Curso curso:allCursos){
 			if(curso.getCodigo() == codigo){
 				for(Modulo modulo:curso.getModulos()){ 
 					if(modulo.getCod() == cod_modulo){
@@ -188,6 +204,9 @@ public class Plataforma {
 								aula.setNome(nome);
 								aula.setVideo(link);
 								aula.setConteudo(conteudo);
+								
+								cursos.store(curso);
+								cursos.commit();
 								break;
 							}
 						}
@@ -200,33 +219,119 @@ public class Plataforma {
 	}
 	
 	public List<Usuario> listarUsuarios() {
-		List<Usuario> usuariosEncontrados = new LinkedList<Usuario>();
+		Query query = usuarios.query();
+		query.constrain(Usuario.class);
+		List<Usuario> allUsuarios = query.execute();
 		
-		for(Usuario usuario:usuarios){
-			 if(usuario.getNome() != null) usuariosEncontrados.add(usuario);
-		}
-		
-		return usuariosEncontrados;
+		return allUsuarios;
 	}
 	
 	public Usuario buscarUsuario(int codigo) {
-		for(Usuario usuario:usuarios){
+		List<Usuario> allUsuarios = listarUsuarios();
+		
+		for(Usuario usuario:allUsuarios){
 			 if(usuario.getCodigo() == codigo) return usuario;
 		}
 		
 		return null;
 	}
 	
-	public void cadastrarUsuario(Usuario usuario) {
-		usuarios.add(usuario);
+	public int autoincrement() {
+		List<Usuario> allUsuarios = listarUsuarios();
+		
+		int maxCod = 0;
+		
+		for(Usuario usuario:allUsuarios) {
+			maxCod = Math.max(maxCod, usuario.getCodigo());
+		}
+		
+		return maxCod + 1;
+	}
+	
+	public void cadastrarUsuario(Usuario usuario) { 
+		usuarios.store(usuario);
+		usuarios.commit();
 	}
 	
 	public Usuario loginUsuario(String username, String password) {
-		for(Usuario usuario:usuarios) {
+		List<Usuario> allUsuarios = listarUsuarios();
+		
+		for(Usuario usuario:allUsuarios) {
 			if(usuario.getLogin().equals(username) && usuario.getSenha().equals(password)){
 				return usuario;
 			}
 		}
 		return null;
+	}
+	
+	public List<UsuarioCurso> listarUsuarioCursos() {
+		Query query = usuariosCursos.query();
+		query.constrain(UsuarioCurso.class);
+		List<UsuarioCurso> allUsuariosCursos = query.execute();
+		
+		return allUsuariosCursos;
+	}
+	
+	public List<Curso> buscarCursosInscritos(int cod_usuario) {
+		List<UsuarioCurso> allUsuariosCursos = listarUsuarioCursos();		
+		List<Curso> allCursos = listarCursos();
+		List<Curso> cursosInscritos = new LinkedList<Curso>();
+		
+		for(UsuarioCurso usuarioCurso:allUsuariosCursos) {
+			if(usuarioCurso.getCod_usuario() == cod_usuario) {
+				for(Curso curso:allCursos) {
+					if(curso.getCodigo() == usuarioCurso.getCod_curso()) {
+						cursosInscritos.add(curso);
+						break;
+					}
+				}
+			}
+		}
+		
+		return cursosInscritos;
+	}
+	
+	public UsuarioCurso buscarUsuarioCurso(int cod_usuario, int cod_curso) { 
+		List<UsuarioCurso> allUsuariosCursos = listarUsuarioCursos();
+		
+		for(UsuarioCurso usuarioCurso:allUsuariosCursos) {
+			if(usuarioCurso.getCod_usuario() == cod_usuario && usuarioCurso.getCod_curso() == cod_curso) {
+				return usuarioCurso;
+			}
+		}
+		
+		return null;
+	}
+	
+	public boolean inscreverCurso(int cod_usuario, int cod_curso) {
+		List<UsuarioCurso> allUsuariosCursos = listarUsuarioCursos();
+		
+		for(UsuarioCurso usuarioCurso:allUsuariosCursos) {
+			if(usuarioCurso.getCod_usuario() == cod_usuario && usuarioCurso.getCod_curso() == cod_curso) {
+				return true;
+			}
+		}
+		
+		usuariosCursos.store(new UsuarioCurso(cod_usuario, cod_curso, 1, 1));
+		usuariosCursos.commit();
+		
+		return false;
+	}
+	
+	public boolean alterarProgressoCurso(int cod_usuario, int cod_curso, int cod_modulo, int cod_aula) {
+		List<UsuarioCurso> allUsuariosCursos = listarUsuarioCursos();
+		
+		for(UsuarioCurso usuarioCurso:allUsuariosCursos) {
+			if(usuarioCurso.getCod_usuario() == cod_usuario && usuarioCurso.getCod_curso() == cod_curso) {
+				usuarioCurso.setCod_modulo(cod_modulo);
+				usuarioCurso.setCod_aula(cod_aula);
+				
+				usuariosCursos.store(usuarioCurso);
+				usuariosCursos.commit();
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }
